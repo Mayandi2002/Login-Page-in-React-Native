@@ -9,7 +9,16 @@ const ForgotScreen = () => {
     const MyStack = useNavigation();
     
     const onSendPressed = () => {
-        console.warn('Send Code Pressed');
+
+        if(Username == ""){
+            alert("Please Enter Username")
+            return true
+        }
+        else if(Username.length > 7){
+            alert("Username is Allowed Maximum 7 Characters")
+            return true
+        }
+        alert('Code Send Successfully');
         MyStack.navigate('Reset Password');
     };
 

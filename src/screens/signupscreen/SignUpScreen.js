@@ -9,16 +9,45 @@ const SignUpScreen = () => {
     const [Username,setUsername] = useState('');
     const [Email,setEmail] = useState('');
     const [Password,setPassword] = useState('');
-    const [PasswordRepeat,setPasswordRepeat] = useState('');
+    //const [PasswordRepeat,setPasswordRepeat] = useState('');//
     const navigation = useNavigation()
-async function signup(){
-    navigation.navigate('Login');
+
+    const ValidationEmail =(value) => {
+        const regx = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        return regx.test(value)
+        }
+    
+    const onRegisterPressed = () => {
+        if(Username == ""){
+            alert("Please Enter Username")
+            return true
+        }
+        else if(Email == ""){
+            alert("Please Enter Email")
+            return true
+        }
+        else if(Password == ""){
+            alert("Please Enter Password")
+            return true
+        }
+        else if(Username.length > 7){
+            alert("Username is Allowed Maximum 7 Characters ")
+            return true
+        }
+        else if(!ValidationEmail(Email)){
+            alert("Invalid Email Format")
+            return true
+        }
+        else if(Password.length < 8){
+            alert("Password is Should be an 8 Charcters")
+            return true
+        }
 
     console.log('infun')
      axios.post('http://35.154.117.105:8080/api/v1/signup', {
-        email: Email,
         username: Username,
-        password:Password,
+        email: Email,
+        password: Password,
       })
       .then(function (response) {
           alert('Succesfully Registered')
@@ -28,9 +57,7 @@ async function signup(){
           alert(error)
         console.log(error);
       });
-}
-    const onRegisterPressed = () => {
-        console.warn('Registering');
+      navigation.navigate('Login');
     };
 
     const onHaveaccountPressed = () => {
@@ -64,12 +91,13 @@ async function signup(){
     placeholder="Password"
     value={Password} 
     setValue={setPassword} 
-    secureTextEntry
+    secureTextEntry={true}
+    
     />
 
     <SignInButton 
     text="Register" 
-    onPress={()=> signup()} 
+    onPress={onRegisterPressed} 
     />
     <Text style={styles.text}>By registering, you confirming that you Accept our {' '} 
     <Text style={styles.link} onPress={onTermsOfUsePressed}>Terms of Use {' '}</Text>and

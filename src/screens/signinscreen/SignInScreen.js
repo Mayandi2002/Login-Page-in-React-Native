@@ -10,16 +10,34 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 const SignInScreen = () => {
     const [Username,setUsername] = useState('');
     const [Password,setPassword] = useState('');
-    const [msg, setMsg] = useState({error: null, color: "green"})
+    //const [msg, setMsg] = useState({error: null, color: "green"})//
     
     const {height} = useWindowDimensions();
     const MyStack = useNavigation();
-    async function login(){
+
+    const onSignInPressed = () => {    
     
+        if(Username == ""){
+            alert("Please Enter Username")
+            return true
+        }
+        else if(Password == ""){
+            alert("Please Enter Password")
+            return true
+        }
+        else if(Username.length > 7){
+            alert("Username is Allowed Maximum 7 Characters")
+            return true
+        }
+        else if(Password.length < 8){
+            alert("Password Should be an 8 Characters")
+            return true
+        }
+
         console.log('infun')
          axios.put('http://35.154.117.105:8080/api/v1/login', {
             username: Username,
-            password:Password,
+            password: Password,
           })
           .then(function (response) {
               alert('Login Succesfully')
@@ -29,12 +47,10 @@ const SignInScreen = () => {
               alert(error)
             console.log(error);
           });
-    }
     
-    
-    const onSignInPressed = () => {
-        console.warn('Logging In');
     };
+    
+    
 
     const onForgotPasswordPressed = () => {
         //console.warn('Forgot Password');//
@@ -68,7 +84,7 @@ const SignInScreen = () => {
 
     <SignInButton 
     text="Log In" 
-    onPress={()=> login()} 
+    onPress={onSignInPressed} 
     />
     <SignUpButton 
     text="Sign Up"

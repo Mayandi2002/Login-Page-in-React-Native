@@ -11,8 +11,37 @@ const ResetScreen = () => {
     const [ReType,setReType] = useState('');
     const MyStack = useNavigation();
     
-    const onConfirmPressed = () => {
-        console.warn('Confirm Pressed');
+    const onSubmitPressed = () => {
+
+        if(Code == ""){
+            alert("Please Enter Code")
+            return true
+        }
+        else if(Password == ""){
+            alert("Please Enter Password")
+            return true
+        }
+        else if(ReType == ""){
+            alert("Please Enter Re-Type Password")
+            return true
+        }
+        else if(isNaN(Code)){
+            alert("Code Must be an Number Format")
+            return true
+        }
+        else if(Code.length > 6 || Code.length < 6){
+            alert("Code Should be an 6 Characters")
+            return true
+        }
+        else if(Password.length < 8){
+            alert("Password Should be an 8 Characters")
+            return true
+        }
+        else if(ReType.length < 8){
+            alert("Re-Type Password Should be an 8 Characters")
+            return true
+        }
+        console.warn('Submit Pressed');
         MyStack.navigate('Login');
     };
 
@@ -24,6 +53,7 @@ const ResetScreen = () => {
     return(
 <View style={styles.root}>
     <Text style={styles.title}> Reset Password</Text>
+    <Text style={{fontSize:12, fontWeight:'bold', color:'gray', padding:5}}>Code is Sended to your Email</Text>
 
     <CustomInput 
     placeholder="Code" 
@@ -44,8 +74,8 @@ const ResetScreen = () => {
     />
     
     <SignInButton style={styles.sendcode}
-    text="Confirm Password" 
-    onPress={onConfirmPressed} 
+    text="Submit" 
+    onPress={onSubmitPressed} 
     />
 
 <ForgotButton 
