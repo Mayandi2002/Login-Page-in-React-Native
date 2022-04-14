@@ -7,6 +7,7 @@ import ForgotButton from '../../components/ForgotButton/ForgotButton';
 import SignUpButton from '../../components/SignUpButton/SignUpButton';
 import axios from 'axios';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+
 const SignInScreen = () => {
     const [Username,setUsername] = useState('');
     const [Password,setPassword] = useState('');
@@ -15,8 +16,7 @@ const SignInScreen = () => {
     const {height} = useWindowDimensions();
     const MyStack = useNavigation();
 
-    const onSignInPressed = () => {    
-    
+    const onSignInPressed = () => { 
         if(Username == ""){
             alert("Please Enter Username")
             return true
@@ -25,7 +25,7 @@ const SignInScreen = () => {
             alert("Please Enter Password")
             return true
         }
-        else if(Username.length > 7){
+        else if(Username.length > 10){
             alert("Username is Allowed Maximum 7 Characters")
             return true
         }
@@ -33,16 +33,17 @@ const SignInScreen = () => {
             alert("Password Should be an 8 Characters")
             return true
         }
-
+        
         console.log('infun')
          axios.put('http://35.154.117.105:8080/api/v1/login', {
             username: Username,
             password: Password,
           })
-          .then(function (response) {
-              alert('Login Succesfully')
-            console.log(response,'res');
-          })
+          .then(({data}) => {
+            alert(data);
+            console.log(data)
+            //alert('Login Succesfully')
+            })
           .catch(function (error) {
               alert(error)
             console.log(error);
@@ -66,17 +67,20 @@ const SignInScreen = () => {
 <View style={styles.root}>
     <Image 
     source={Logo} 
-    style={[styles.Logo, {height: height * 0.3}]} 
+    style={[styles.Logo, {height : height * 0.3}]} 
     resizeMode="contain" 
     />
 
     <CustomInput 
     placeholder="Username" 
+    placeholderTextColor="lightgrey"
     value={Username} 
     setValue={setUsername} 
+    //underlineColorAndroid="transparent"
     />
     <CustomInput
     placeholder="Password"
+    placeholderTextColor="lightgrey"
     value={Password} 
     setValue={setPassword} 
     secureTextEntry
@@ -104,9 +108,9 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     Logo: {
-        width: '100%',
-        maxWidth: 200,
-        maxHeight: 150,
+        width : '100%',
+        maxWidth : 200,
+        maxHeight : 150,
     },
 });
 

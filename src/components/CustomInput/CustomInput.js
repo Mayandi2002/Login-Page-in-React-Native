@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
-const CustomInput = ({Value, setValue, placeholder, secureTextEntry}) => {
+const CustomInput = ({Value, setValue, placeholder, placeholderTextColor, underlineColorAndroid, secureTextEntry, keyboardType}) => {
     return(
 <View style={styles.container}>
     <TextInput 
@@ -9,8 +9,11 @@ const CustomInput = ({Value, setValue, placeholder, secureTextEntry}) => {
     onChangeText={setValue}
     //required={required}//
     placeholder={placeholder} 
+    placeholderTextColor={placeholderTextColor}
     style={styles.input} 
     secureTextEntry={secureTextEntry}
+    keyboardType={keyboardType}
+    underlineColorAndroid={underlineColorAndroid}
     />
 </View>
     );
@@ -18,10 +21,10 @@ const CustomInput = ({Value, setValue, placeholder, secureTextEntry}) => {
  const styles =StyleSheet.create({
      container: {
          backgroundColor: 'white',
-         width:'100%',
+         width :'100%',
 
          borderColor: '#e8e8e8',
-         borderWidth: 1,
+         borderWidth : 1,
          borderRadius: 7,
          
          

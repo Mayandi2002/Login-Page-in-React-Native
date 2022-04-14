@@ -58,13 +58,14 @@ const ResetScreen = () => {
     <CustomInput 
     placeholder="Code" 
     value={Code} 
-    setValue={setCode} 
+    setValue={setCode}
+    keyboardType="number-pad"
     />
 
 <CustomInput 
     placeholder="New Password" 
     value={Password} 
-    setValue={setPassword} 
+    setValue={setPassword}
     />
 
 <CustomInput 

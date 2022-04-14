@@ -30,7 +30,7 @@ const SignUpScreen = () => {
             alert("Please Enter Password")
             return true
         }
-        else if(Username.length > 7){
+        else if(Username.length > 10){
             alert("Username is Allowed Maximum 7 Characters ")
             return true
         }
@@ -49,10 +49,11 @@ const SignUpScreen = () => {
         email: Email,
         password: Password,
       })
-      .then(function (response) {
-          alert('Succesfully Registered')
-        console.log(response,'res');
-      })
+      .then(({data}) => {
+        alert(data);     
+        console.log(data)
+        //alert('Login Succesfully')
+        })
       .catch(function (error) {
           alert(error)
         console.log(error);
@@ -77,18 +78,21 @@ const SignUpScreen = () => {
 
     <CustomInput 
     placeholder="Username" 
+    placeholderTextColor="lightgrey"
     value={Username} 
     setValue={setUsername} 
     />
     
     <CustomInput 
     placeholder="Email" 
+    placeholderTextColor="lightgrey"
     value={Email} 
     setValue={setEmail} 
     />
 
     <CustomInput
     placeholder="Password"
+    placeholderTextColor="lightgrey"
     value={Password} 
     setValue={setPassword} 
     secureTextEntry={true}
